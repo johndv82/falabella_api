@@ -1,0 +1,494 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Falabella API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/carrito_cliente/{id}": {
+            "get": {
+                "tags": [
+                    "Carrito"
+                ],
+                "description": "Retorna listado de productos en carrito por Cliente",
+                "operationId": "listar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "listado carrito"
+                    },
+                    "404": {
+                        "description": "No hay coincidencias"
+                    }
+                }
+            }
+        },
+        "/carrito": {
+            "post": {
+                "tags": [
+                    "Carrito"
+                ],
+                "description": "Agrega nuevo producto al Carrito del Cliente",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos de agregado de Carrito",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "producto_id": {
+                                        "type": "integer"
+                                    },
+                                    "cantidad": {
+                                        "type": "integer"
+                                    },
+                                    "fecha": {
+                                        "type": "date"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "cliente_id": 1,
+                                    "producto_id": 2,
+                                    "cantidad": 1,
+                                    "fecha": "02/02/2022"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Guardado"
+                    },
+                    "409": {
+                        "description": "Datos de registro en conflicto"
+                    }
+                }
+            }
+        },
+        "/carrito/{id}": {
+            "delete": {
+                "tags": [
+                    "Carrito"
+                ],
+                "description": "Elimina un producto de Carrito del Cliente",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de carrito a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrito Eliminado"
+                    },
+                    "406": {
+                        "description": "Id no aceptado"
+                    }
+                }
+            }
+        },
+        "/despachos": {
+            "post": {
+                "tags": [
+                    "Despachos"
+                ],
+                "description": "Registra un nuevo despacho para el Cliente",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos de despacho",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "direccion_id": {
+                                        "type": "integer"
+                                    },
+                                    "envio_domicilio": {
+                                        "type": "integer"
+                                    },
+                                    "fecha_despacho": {
+                                        "type": "date"
+                                    },
+                                    "cod_tienda_retiro": {
+                                        "type": "string"
+                                    },
+                                    "estado_despacho": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "cliente_id": 1,
+                                    "direccion_id": 1,
+                                    "envio_domicilio": 1,
+                                    "fecha_despacho": "02/03/2022",
+                                    "cod_tienda_retiro": "TD004",
+                                    "estado_despacho": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Guardado"
+                    },
+                    "409": {
+                        "description": "Datos de registro en conflicto"
+                    }
+                }
+            }
+        },
+        "/direccion_cliente/{id}": {
+            "get": {
+                "tags": [
+                    "Direcciones"
+                ],
+                "description": "Retorna listado de direcciones que tiene registradas un Cliente",
+                "operationId": "listar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "listado direcciones"
+                    },
+                    "406": {
+                        "description": "No hay coincidencias"
+                    }
+                }
+            }
+        },
+        "/direcciones/{id}": {
+            "get": {
+                "tags": [
+                    "Direcciones"
+                ],
+                "description": "Retorna los datos de una determinada Dirección",
+                "operationId": "obtener",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Dirección",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "datos de la dirección"
+                    },
+                    "406": {
+                        "description": "No hay coincidencias"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Direcciones"
+                ],
+                "description": "Actualiza una dirección del Cliente",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Direccion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos de Dirección",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "descripcion": {
+                                        "type": "string"
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "departamento": {
+                                        "type": "string"
+                                    },
+                                    "provincia": {
+                                        "type": "string"
+                                    },
+                                    "distrito": {
+                                        "type": "string"
+                                    },
+                                    "referencia": {
+                                        "type": "string"
+                                    },
+                                    "favorito": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "descripcion": "direccion1",
+                                    "cliente_id": 1,
+                                    "departamento": "Lima",
+                                    "provincia": "Lima",
+                                    "distrito": "La Victoria",
+                                    "referencia": "nn",
+                                    "favorito": 0
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Actualizado"
+                    },
+                    "406": {
+                        "description": "Id no aceptado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Direcciones"
+                ],
+                "description": "Elimina una dirección del Cliente",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de direccion a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Direccion Eliminada"
+                    },
+                    "406": {
+                        "description": "Id no aceptado"
+                    }
+                }
+            }
+        },
+        "/direcciones": {
+            "post": {
+                "tags": [
+                    "Direcciones"
+                ],
+                "description": "Agrega una nueva dirección del Cliente",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos de Dirección",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "descripcion": {
+                                        "type": "string"
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "departamento": {
+                                        "type": "string"
+                                    },
+                                    "provincia": {
+                                        "type": "string"
+                                    },
+                                    "distrito": {
+                                        "type": "string"
+                                    },
+                                    "referencia": {
+                                        "type": "string"
+                                    },
+                                    "favorito": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "descripcion": "direccion1",
+                                    "cliente_id": 1,
+                                    "departamento": "Lima",
+                                    "provincia": "Lima",
+                                    "distrito": "La Victoria",
+                                    "referencia": "nn",
+                                    "favorito": 0
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Guardado"
+                    },
+                    "409": {
+                        "description": "Datos de registro en conflicto"
+                    }
+                }
+            }
+        },
+        "/pagos": {
+            "post": {
+                "tags": [
+                    "Pagos"
+                ],
+                "description": "Registra un nuevo pago del Cliente",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos de pago",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "metodo_pago": {
+                                        "type": "string"
+                                    },
+                                    "monto_pago": {
+                                        "type": "number"
+                                    },
+                                    "cupon_descuento": {
+                                        "type": "string"
+                                    },
+                                    "fecha": {
+                                        "type": "date"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "cliente_id": 1,
+                                    "metodo_pago": "CREDITO",
+                                    "monto_pago": 450.5,
+                                    "cupon_descuento": "CGVFFD6FGF7",
+                                    "fecha": "02/03/2022"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Guardado"
+                    },
+                    "409": {
+                        "description": "Datos de registro en conflicto"
+                    }
+                }
+            }
+        },
+        "/pedidos": {
+            "post": {
+                "tags": [
+                    "Pedidos"
+                ],
+                "description": "Registra un nuevo pedido del Cliente",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Datos de Pedido",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cliente_id": {
+                                        "type": "integer"
+                                    },
+                                    "carrito_id": {
+                                        "type": "integer"
+                                    },
+                                    "fecha": {
+                                        "type": "date"
+                                    },
+                                    "despacho_id": {
+                                        "type": "integer"
+                                    },
+                                    "pago_id": {
+                                        "type": "integer"
+                                    },
+                                    "estado": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "cliente_id": 1,
+                                    "carrito_id": 1,
+                                    "fecha": "02/02/2022",
+                                    "despacho_id": 3,
+                                    "pago_id": 2,
+                                    "estado": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro Guardado"
+                    },
+                    "409": {
+                        "description": "Datos de registro en conflicto"
+                    }
+                }
+            }
+        }
+    }
+}
